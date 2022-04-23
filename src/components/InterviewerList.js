@@ -1,22 +1,26 @@
-import React, {useState} from "react";
+import React from "react";
 import "components/InterviewerList.scss"
 import InterviewerListItem from "./InterviewerListItem";
 
 export default function InterviewList(props) {
     
-    const [interviewer, setInterviewer] = useState("");
+    const {value, interviewers, onChange} = props;
+    
 
-    const interviewers = [
-        { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
-        { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
-        { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-        { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-        { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-      ];
-
-    const interviewerItemList = interviewers.map((interviewer)=><InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar}/>)
+    const interviewerItemList = interviewers.map((interviewerItem)=>{
+    return (
+    <InterviewerListItem 
+        key={interviewerItem.id}
+        name={interviewerItem.name} 
+        avatar={interviewerItem.avatar} 
+        setInterviewer={()=>onChange(interviewerItem.id)} 
+        selected={value===interviewerItem.id}/>
+    )
+});
 
     return(
-
+        <ul>
+            {interviewerItemList}
+        </ul>
     );
 }
